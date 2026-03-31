@@ -3,6 +3,7 @@ name = "copilot-history-viewer"
 version = "0.1.0"
 description = "CLI tool to manage and export GitHub Copilot Chat history from VS Code"
 requires-python = ">=3.9"
+license = "MIT"
 
 [project.scripts]
 copilot-history-viewer = "copilot_history_viewer.cli:main"
