@@ -81,14 +81,18 @@ def parse_session(path: Path) -> SessionInfo | None:
 def parse_sessions(paths: list[Path]) -> list[SessionInfo]:
     """Parse multiple session files, skipping unparseable ones.
 
+    Deduplicates by session_id, keeping the copy with the most requests.
     Returns sessions sorted by creation date (oldest first).
     """
-    sessions = []
+    by_id: dict[str, SessionInfo] = {}
     for p in paths:
         info = parse_session(p)
-        if info is not None:
-            sessions.append(info)
-    return sorted(sessions, key=lambda s: s.creation_timestamp)
+        if info is None:
+            continue
+        existing = by_id.get(info.session_id)
+        if existing is None or info.request_count > existing.request_count:
+            by_id[info.session_id] = info
+    return sorted(by_id.values(), key=lambda s: s.creation_timestamp)
 
 
 def group_by_date(sessions: list[SessionInfo]) -> dict[date, list[SessionInfo]]:

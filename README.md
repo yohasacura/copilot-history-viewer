@@ -8,6 +8,7 @@ CLI tool to browse and export GitHub Copilot Chat history from VS Code and VS Co
 - Filters sessions by date range
 - Exports raw JSONL files grouped by day
 - Detects multi-day sessions (sessions continued across different days)
+- Deduplicates sessions that appear in multiple workspace folders
 - Zero external dependencies — Python 3.9+ stdlib only
 
 ## Usage
@@ -94,3 +95,7 @@ tests/
 ├── test_parser.py
 └── test_exporter.py
 ```
+
+## License
+
+MIT — see [LICENSE](LICENSE) for details.
